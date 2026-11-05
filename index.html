@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Christmas gift tag maker: type names, print on A4</title>
+<meta name="description" content="Free, open-source Christmas gift tag maker in one HTML file. Paste a list of names, choose a style and size, print 8, 12 or 21 tags per A4 page. No sign-up, nothing stored.">
+<style>
+:root{--navy:#0D1323;--cobalt:#2563EB;--red:#B42318;--green:#166534;--paper:#F7F7F8;--ink:#1F2937;--muted:#6B7280;--line:#E5E7EB}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:1.0625rem;line-height:1.55}
+a{color:var(--cobalt)}
+.wrap{width:min(60rem,calc(100% - 2rem));margin:0 auto;padding:1rem 0 2rem}
+h1{font-size:clamp(1.8rem,4vw,2.4rem);line-height:1.15;margin:.2rem 0 .6rem;color:var(--navy)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.25rem;margin:1.2rem 0}
+label.f{display:block;font-weight:700;color:var(--navy);margin:.2rem 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1rem 1.2rem}
+input[type=text],select,textarea{font:inherit;border:1.5px solid var(--line);border-radius:8px;padding:.4rem .5rem;background:#fff;width:100%}
+textarea{min-height:8rem}
+.opts label{display:block;margin:.3rem 0}
+button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:.7rem 1.2rem;background:var(--cobalt);color:#fff;cursor:pointer;margin:.5rem .5rem 0 0}
+button.alt{background:var(--navy)}
+.note{color:var(--muted);font-size:.95rem}
+#msg{color:var(--red);font-weight:700;min-height:1.4rem}
+#out{margin:1rem 0}
+/* A4 page of tags, sizes in mm so print is true size */
+.page{width:210mm;height:297mm;background:#fff;border:1px solid var(--line);margin:1rem auto;display:grid;align-content:start;justify-content:center;overflow:hidden;max-width:100%}
+.page.l8{grid-template-columns:repeat(2,99.1mm);grid-template-rows:repeat(4,74.25mm);padding:0;grid-auto-rows:74.25mm}
+.page.l12{grid-template-columns:repeat(2,105mm);grid-template-rows:repeat(6,49.5mm)}
+.page.l21{grid-template-columns:repeat(3,70mm);grid-template-rows:repeat(7,42.4mm)}
+.tag{--accent:var(--red);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4mm 6mm;overflow:hidden;color:#111;border:.2mm dashed #bbb}
+.tag.nocut{border-color:transparent}
+.tag.green{--accent:var(--green)}.tag.navy{--accent:var(--navy)}.tag.plain{--accent:#000}
+.tag::before{content:"";position:absolute;inset:2.5mm;border:.7mm solid var(--accent);border-radius:3mm;pointer-events:none}
+.tag .hole{position:absolute;top:5mm;left:50%;width:4mm;height:4mm;margin-left:-2mm;border:.4mm solid var(--accent);border-radius:50%}
+.tag .top{font-size:3.4mm;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0}
+.tag .to{font-size:4mm;color:#555;margin:1.5mm 0 0}
+.tag .name{font-weight:800;color:var(--accent);line-height:1.1;margin:.5mm 0;word-break:break-word;max-width:100%}
+.l8 .name{font-size:9mm}.l12 .name{font-size:7.5mm}.l21 .name{font-size:5.5mm}
+.l21 .top{font-size:2.6mm}.l21 .to{font-size:3mm}.l21 .from{font-size:3mm}
+.tag .from{font-size:4mm;color:#333;margin:0}
+.tag .blank{display:block;width:70%;border-bottom:.4mm solid #444;height:6mm}
+.tag.hasHole{padding-top:9mm}
+@media print{
+  body{background:#fff}
+  .noprint{display:none!important}
+  .wrap{width:auto;padding:0;margin:0}
+  #out{margin:0}
+  .page{margin:0;border:0;page-break-after:always;break-after:page;width:210mm;height:297mm}
+  .page:last-child{page-break-after:auto;break-after:auto}
+  .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="noprint">
+<h1>Free Christmas gift tag maker</h1>
+<p>Paste a list of names, pick a style and a size, then print. Everything runs in your browser. Nothing is sent anywhere or stored, and there is no sign-up.</p>
+<div class="card">
+<div class="grid">
+<div style="grid-column:1/-1"><label class="f" for="names">Names, one per line</label>
+<textarea id="names" placeholder="Nan&#10;Grandad&#10;Auntie Jo&#10;Sam"></textarea>
+<span class="note">Leave this empty to print blank tags to write on by hand.</span></div>
+<div><label class="f" for="from">From (optional)</label><input type="text" id="from" maxlength="40" placeholder="Love from Charlie"></div>
+<div><label class="f" for="greet">Top line</label>
+<select id="greet"><option>Merry Christmas</option><option>Happy Christmas</option><option>With love</option><option>Season's greetings</option><option>Ho ho ho</option><option value="">None</option></select></div>
+<div><label class="f" for="layout">Tags per A4 page</label>
+<select id="layout"><option value="l8">8 (large, 99 x 74 mm)</option><option value="l12" selected>12 (medium, 105 x 49.5 mm)</option><option value="l21">21 (small, 70 x 42.4 mm)</option></select></div>
+<div><label class="f" for="style">Style</label>
+<select id="style"><option value="red">Red</option><option value="green">Green</option><option value="navy">Midnight blue</option><option value="plain">Plain black (saves ink)</option></select></div>
+<div><label class="f" for="copies">Copies of each name</label>
+<select id="copies"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<div class="opts"><label><input type="checkbox" id="hole" checked> Show a hole-punch circle</label>
+<label><input type="checkbox" id="cut" checked> Show dashed cut lines</label></div>
+</div>
+<button id="make">Make my tags</button><button class="alt" id="print">Print</button>
+<div id="msg" role="status"></div>
+<p class="note">Print at 100 percent (actual size) on A4 with margins set to none. Print on thin card for the best result, then cut along the dashed lines and punch the hole.</p>
+</div>
+</div>
+<div id="out"></div>
+<div class="noprint">
+<p class="note">Open source under the MIT licence. Made by <a href="https://www.tchworks.co.uk/free/christmas-gift-tags-printable-2026/?utm_source=github&amp;utm_medium=repo&amp;utm_campaign=gift-tag-repo">TCH Works</a>.</p>
+</div>
+</div>
+<script>
+(function(){
+var perPage={l8:8,l12:12,l21:21};
+function $(id){return document.getElementById(id)}
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
+function make(){
+  var msg=$('msg');msg.textContent='';
+  var layout=$('layout').value,style=$('style').value,copies=parseInt($('copies').value,10)||1;
+  var raw=$('names').value.split(/\r?\n/).map(function(s){return s.trim()}).filter(Boolean).slice(0,300);
+  var list=[];
+  if(raw.length){raw.forEach(function(n){for(var i=0;i<copies;i++)list.push(n.slice(0,40))})}
+  else{for(var b=0;b<perPage[layout];b++)list.push(null)}
+  var n=perPage[layout],out=$('out');out.textContent='';
+  for(var i=0;i<list.length;i+=n){
+    var page=el('div','page '+layout);
+    list.slice(i,i+n).forEach(function(name){
+      var t=el('div','tag '+style+($('cut').checked?'':' nocut')+($('hole').checked?' hasHole':''));
+      if($('hole').checked)t.appendChild(el('span','hole'));
+      if($('greet').value)t.appendChild(el('p','top',$('greet').value));
+      t.appendChild(el('p','to','To'));
+      if(name===null){t.appendChild(el('span','blank'))}else{t.appendChild(el('p','name',name))}
+      var f=$('from').value.trim();
+      if(f){t.appendChild(el('p','from',f))}else if(name===null){t.appendChild(el('p','from','From'));t.appendChild(el('span','blank'))}
+      page.appendChild(t);
+    });
+    out.appendChild(page);
+  }
+  if(raw.length>=300)msg.textContent='Showing the first 300 names.';
+  return true;
+}
+$('make').addEventListener('click',make);
+$('print').addEventListener('click',function(){make();window.print()});
+make();
+})();
+</script>
+</body>
+</html>
