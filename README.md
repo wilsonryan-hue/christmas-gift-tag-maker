@@ -27,3 +27,14 @@ Put `index.html` on any static host (GitHub Pages, Netlify, a school intranet). 
 ## Licence
 
 MIT. Made by [TCH Works](https://www.tchworks.co.uk/?utm_source=github&utm_medium=repo&utm_campaign=gift-tag-repo), which also publishes [Christmas cards](https://www.tchworks.co.uk/cards/christmas/?utm_source=github&utm_medium=repo&utm_campaign=gift-tag-repo) and a free [Secret Santa generator](https://www.tchworks.co.uk/free/secret-santa-generator/?utm_source=github&utm_medium=repo&utm_campaign=gift-tag-repo).
+
+## Free printable A4 PDF pack
+
+A ready-to-print blank-and-sample pack lives in [`printable/gift-tags-printable-2026-free.pdf`](printable/gift-tags-printable-2026-free.pdf) and as a [GitHub Release](https://github.com/wilsonryan-hue/christmas-gift-tag-maker/releases) asset.
+
+- Cover + how-to, 4 blank sheets (red / green / midnight blue / plain outline, 8 tags each), 1 sample named sheet, final page with links.
+- Print at 100% on A4, cut the dashed lines, punch the hole, tie ribbon.
+- Prefer typed names? Use the free online maker: [tchworks.co.uk/free/christmas-gift-tags-printable-2026](https://www.tchworks.co.uk/free/christmas-gift-tags-printable-2026/?utm_source=github&utm_campaign=gifttags-release).
+- Christmas cards from TCH Works: [£3.99 delivered](https://www.tchworks.co.uk/cards/christmas/?src=gifttags-release).
+
+Free for personal use. Please don't resell the PDF file.
