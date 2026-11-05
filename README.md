@@ -38,3 +38,8 @@ A ready-to-print blank-and-sample pack lives in [`printable/gift-tags-printable-
 - Christmas cards from TCH Works: [£3.99 delivered](https://www.tchworks.co.uk/cards/christmas/?src=gifttags-release).
 
 Free for personal use. Please don't resell the PDF file.
+
+## Instant download (Gumroad mirror)
+
+Same free PDF as a one-click download (no GitHub account needed): [tchworks.gumroad.com/l/zswujb](https://tchworks.gumroad.com/l/zswujb?utm_source=github&utm_medium=repo&utm_campaign=gift-tag-repo).
+
